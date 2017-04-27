@@ -27,6 +27,16 @@ class ItemsController < ProtectedController
     end
   end
 
+  def update
+    # @item = current_user.find(params[:id])
+
+    if @item.update(item_params)
+      head :no_content
+    else
+      render json: @item.errors, status: :unprocessable_entity
+    end
+  end
+
   def set_item
     # @item = Item.find(params[:id])
     @item = current_user.items.find(params[:id])
