@@ -1,17 +1,15 @@
 #!/bin/bash
 
-API="${API_ORIGIN:-http://localhost:4741}"
-URL_PATH="/sign-up"
-curl "${API}${URL_PATH}" \
-  --include \
-  --request POST \
+#curl "http://localhost:3000/sign-up" \
+curl --include --request POST http://localhost:4741/sign-up \
   --header "Content-Type: application/json" \
   --data '{
     "credentials": {
-      "email": "narsbars@gmail.com",
-      "password": "wdi",
-      "password_confirmation": "wdi"
+      "email": "yellow@gmail.com",
+      "password": "test",
+      "password_confirmation": "test"
     }
   }'
 
+# data output from curl doesn't have a trailing newline
 echo
