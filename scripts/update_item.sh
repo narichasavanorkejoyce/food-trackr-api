@@ -1,5 +1,5 @@
-ID=12
-TOKEN=BAhJIiU4OGFiOGI1N2QwZGFmZmM4Zjc2ZDYzY2M3NjY2MGFjOQY6BkVG--16157b70c1076f7ad52b780fb4214680a145245b
+ID=18
+TOKEN=BAhJIiU1NjI1ODYxMjViMWU1OTdkOWVjODIxODM0MjFjODU3MgY6BkVG--f83e2dcdc671fa7ac28216424396dc6c9560b2a0
 API="${API_ORIGIN:-http://localhost:4741}"
 URL_PATH="/items/$ID"
 curl "${API}${URL_PATH}" \
@@ -9,7 +9,7 @@ curl "${API}${URL_PATH}" \
  --header "Authorization: Token token=$TOKEN" \
  --data '{
    "item": {
-     "food_name": "pinto beans"
+     "quantity": "false"
    }
  }'
 
