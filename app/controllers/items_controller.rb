@@ -37,6 +37,12 @@ class ItemsController < ProtectedController
     end
   end
 
+  def destroy
+    @item.destroy
+
+    head :no_content
+  end
+
   def set_item
     # @item = Item.find(params[:id])
     @item = current_user.items.find(params[:id])
