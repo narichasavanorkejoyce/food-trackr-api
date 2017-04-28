@@ -6,7 +6,11 @@ class ItemsController < ProtectedController
   def index
     @items = current_user.items
 
-    render json: @items
+    # Only return the items that exist/have not been consumed
+    render json:
+      if (quantity = params[:quantity])
+        @items.where(quantity: true)
+      end
   end
 
   # GET /items/1
