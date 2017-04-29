@@ -5,5 +5,4 @@ class Item < ApplicationRecord
   validates :purchase_date, presence: true
   validates :exp_date, presence: true
   validates :store_name, presence: true
-
 end
