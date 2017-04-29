@@ -58,6 +58,6 @@ class ItemsController < ProtectedController
   end
 
   def item_params
-    params.require(:item).permit(:exp_date, :food_name, :purchase_date, :purchased, :quantity, :store_name)
+    params.require(:item).permit(:exp_date, :food_name, :purchase_date, :purchased, :quantity, :store_name, :days_to_exp)
   end
 end
