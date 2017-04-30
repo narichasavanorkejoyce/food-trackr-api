@@ -11,10 +11,10 @@ class ItemsController < ProtectedController
     render json:
       # Only return the items that exist/have not been consumed
       if (params[:quantity] == 'true')
-        @items.where(quantity: true)
+        @items.where(quantity: true).order(:exp_date, :food_name)
       # Return items that have been consume, need to be purchased
       else
-        @items.where(quantity: false)
+        @items.where(quantity: false).order(:store_name, :food_name)
       end
   end
 
