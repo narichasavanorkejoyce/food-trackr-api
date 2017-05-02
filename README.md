@@ -1,10 +1,17 @@
-[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
+## foodTrackr - API
 
-# rails-api-template
+Link to App: [foodTrackr](https://narichasavanorkejoyce.github.io/food-trackr-client/)
 
-A template for starting projects with `rails-api`. Includes authentication.
+![Imgur](http://i.imgur.com/ZzUgTGj.png)
 
-At the beginning of each cohort, update the versions in [`Gemfile`](Gemfile).
+## About
+foodTrackr is an app to help people remember what is in their kitchen. When I'm out of the house, I often forget what I have in the fridge and it's more likely that I'll buy something I already have. In addition, foodTrackr can help you keep track of when food will expire. My hope is that we can reduce accidental food waste if people are more aware of what is in their fridge.
+
+## Data Model
+- One-to-Many
+  - [ERD](http://i.imgur.com/3gPzKnM.jpg?1)
+  - Users (a user has many items)
+  - Items (an item belongs to a user)
 
 ## Dependencies
 
@@ -16,47 +23,7 @@ Install with `bundle install`.
 -   [`ruby`](https://www.ruby-lang.org/en/)
 -   [`postgres`](http://www.postgresql.org)
 
-Until Rails 5 is released, this template should follow the most recent released
-version of Rails 4, as well as track `master` branches for `rails-api` and
-`active_model_serializers`.
-
-## Installation
-
-1.  [Download](../../archive/master.zip) this template.
-1.  Unzip and rename the template directory.
-1.  Empty [`README.md`](README.md) and fill with your own content.
-1.  Move into the new project and `git init`.
-1.  Install dependencies with `bundle install`.
-1.  Rename your app module in `config/application.rb` (change
-    `RailsApiTemplate`).
-1.  Rename your project database in `config/database.yml` (change
-    `'rails-api-template'`).
-1.  Create a `.env` for sensitive settings (`touch .env`).
-1.  Generate new `development` and `test` secrets (`bundle exec rake secret`).
-1.  Store them in `.env` with keys `SECRET_KEY_BASE_<DEVELOPMENT|TEST>`
-    respectively.
-1.  In order to make requests to your deployed API, you will need to set
-    `SECRET_KEY_BASE` in the environment of the production API (using `heroku
-    config:set` or the Heroku dashboard).
-1.  In order to make requests from your deployed client application, you will
-    need to set `CLIENT_ORIGIN` in the environment of the production API (e.g.
-    `heroku config:set CLIENT_ORIGIN https://<github-username>.github.io`).
-1.  Setup your database with `bin/rake db:nuke_pave` or `bundle exec rake
-    db:nuke_pave`.
-1.  Run the API server with `bin/rails server` or `bundle exec rails server`.
-
-## Structure
-
-This template follows the standard project structure in Rails 4.
-
-`curl` command scripts are stored in [`scripts`](scripts) with names that
-correspond to API actions.
-
-User authentication is built-in.
-
 ## Tasks
-
-Developers should run these often!
 
 -   `bin/rake routes` lists the endpoints available in your API.
 -   `bin/rake test` runs automated tests.
@@ -65,18 +32,9 @@ Developers should run these often!
 -   `bin/rails server` starts the API.
 -   `scripts/*.sh` run various `curl` commands to test the API. See below.
 
-<!-- TODO -   `rake nag` checks your code style. -->
-<!-- TODO -   `rake lint` checks your code for syntax errors. -->
+## Tests
 
-## API
-
-Use this as the basis for your own API documentation. Add a new third-level
-heading for your custom entities, and follow the pattern provided for the
-built-in user authentication documentation.
-
-Scripts are included in [`scripts`](scripts) to test built-in actions. Add your
-own scripts to test your custom API. As an alternative, you can write automated
-tests in RSpec to test your API.
+`curl` command scripts are included in [`scripts`](scripts) to test built-in actions. Files names correspond to the appropriate action.
 
 ### Authentication
 
@@ -275,22 +233,162 @@ Content-Type: application/json; charset=utf-8
 }
 ```
 
-### Reset Database without dropping
+### foodTrackr Actions
 
-This is not a task developers should run often, but it is sometimes necessary.
+| Verb   | URI Pattern            | Controller#Action |
+|--------|------------------------|-------------------|
+| POST   | `/items`               | `items#create`    |
+| GET    | `/items`               | `items#index`     |
+| PATCH  | `/items/:id`           | `items#update`    |
+| DELETE | `/items/:id`           | `items#destroy`   |
 
-**locally**
+#### POST /create
+
+Request:
 
 ```sh
-bin/rake db:migrate VERSION=0
-bin/rake db:migrate db:seed db:examples
+API="${API_ORIGIN:-http://localhost:4741}"
+URL_PATH="/items"
+curl "${API}${URL_PATH}" \
+ --include \
+ --request POST \
+ --header "Content-Type: application/json" \
+ --header "Authorization: Token token=$TOKEN" \
+ --data '{
+   "item": {
+     "food_name": "carrots",
+     "purchase_date": "2017-04-27",
+     "exp_date": "2017-06-01",
+     "store_name": "Trader Joes",
+     "quantity": "true",
+     "purchased": "true"
+   }
+ }'
 ```
 
-**heroku**
+Response:
 
+```md
+HTTP/1.1 201 Created
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Location: http://localhost:4741/items/89
+Content-Type: application/json; charset=utf-8
+ETag: W/"8b07cc195c83525a2d144b4e5098a318"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 3ad159cd-da50-486e-9efb-a40dc50a1571
+X-Runtime: 0.023185
+Vary: Origin
+Transfer-Encoding: chunked
+
+{"item":{"id":89,"food_name":"carrots","purchase_date":"2017-04-27","exp_date":"2017-06-01","store_name":"Trader Joes","quantity":true,"purchased":true,"days_to_exp":30}}
+```
+
+#### GET /items
+
+Request: Get User's Food Items
 ```sh
-heroku run rake db:migrate VERSION=0
-heroku run rake db:migrate db:seed db:examples
+API="${API_ORIGIN:-http://localhost:4741}"
+URL_PATH="/items?quantity=true"
+curl "${API}${URL_PATH}" \
+  --include \
+  --request GET \
+  --header "Authorization: Token token=$TOKEN"
+  ```
+
+Response: Get User's Food Items
+```
+HTTP/1.1 200 OK
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Content-Type: application/json; charset=utf-8
+ETag: W/"df35a9926db75d353c7fd57e5a3239f9"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 8a31c40d-6273-4400-88d8-aab9a458bfa8
+X-Runtime: 0.007277
+Vary: Origin
+Transfer-Encoding: chunked
+
+{"items":[{"id":86,"food_name":"chicken","purchase_date":"2017-05-01","exp_date":"2017-05-10","store_name":"Stop \u0026 Shop","quantity":true,"purchased":true,"days_to_exp":8},{"id":88,"food_name":"pizza","purchase_date":"2017-05-02","exp_date":"2017-05-10","store_name":"Otto's","quantity":true,"purchased":true,"days_to_exp":8},{"id":87,"food_name":"cheese","purchase_date":"2017-05-01","exp_date":"2017-05-20","store_name":"Whole Foods","quantity":true,"purchased":true,"days_to_exp":18},{"id":89,"food_name":"carrots","purchase_date":"2017-04-27","exp_date":"2017-06-01","store_name":"Trader Joes","quantity":true,"purchased":true,"days_to_exp":30}]}
+```
+Request: Get User's Grocery List
+```sh
+API="${API_ORIGIN:-http://localhost:4741}"
+URL_PATH="/items?quantity=false"
+curl "${API}${URL_PATH}" \
+  --include \
+  --request GET \
+  --header "Authorization: Token token=$TOKEN"
+  ```
+Response: Get User's Grocery List
+```
+HTTP/1.1 200 OK
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Content-Type: application/json; charset=utf-8
+ETag: W/"c08024a88957fd6ecb0384c3b36fa308"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: e1647236-ab5a-46b2-ac8b-2e63c5300df5
+X-Runtime: 0.006484
+Vary: Origin
+Transfer-Encoding: chunked
+
+{"items":[{"id":84,"food_name":"bread","purchase_date":"2017-05-02","exp_date":"2017-05-10","store_name":"Clear Flour","quantity":false,"purchased":true,"days_to_exp":8},{"id":81,"food_name":"blueberries","purchase_date":"2017-05-02","exp_date":"2017-06-02","store_name":"Frommagio","quantity":false,"purchased":true,"days_to_exp":31},{"id":75,"food_name":"oranges","purchase_date":"2017-05-06","exp_date":"2017-05-10","store_name":"Whole Foods","quantity":false,"purchased":true,"days_to_exp":8}]}
+```
+#### Patch /items/:id
+Request: Update value of quantity to "false"
+```sh
+API="${API_ORIGIN:-http://localhost:4741}"
+URL_PATH="/items/$ID"
+curl "${API}${URL_PATH}" \
+ --include \
+ --request PATCH \
+ --header "Content-Type: application/json" \
+ --header "Authorization: Token token=$TOKEN" \
+ --data '{
+   "item": {
+     "quantity": "false"
+   }
+ }'
+```
+
+Response: Update value of quantity to "false"
+```
+HTTP/1.1 204 No Content
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Cache-Control: no-cache
+X-Request-Id: 17aa68cb-b549-4327-8dc5-b3462c0d8e8c
+X-Runtime: 0.013511
+Vary: Origin
+```
+#### Delete /items/:id
+
+Request:
+```sh
+API="${API_ORIGIN:-http://localhost:4741}"
+URL_PATH="/items/$ID"
+curl "${API}${URL_PATH}" \
+  --include \
+  --request DELETE \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=$TOKEN"
+```
+
+Response:
+```
+HTTP/1.1 204 No Content
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Cache-Control: no-cache
+X-Request-Id: bc2a000f-311c-4ed6-b2e4-1ba6678463e8
+X-Runtime: 0.012554
+Vary: Origin
 ```
 
 ## [License](LICENSE)

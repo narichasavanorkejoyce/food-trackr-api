@@ -1,5 +1,5 @@
 #!/bin/bash
-TOKEN=BAhJIiU5ZTc2NDRmMmZjMDcyNjRlYmMxYjUxZWY5YjA0NjBmMgY6BkVG--138e4708f137bb8cb6bb6e151d61758ff8cd5385
+TOKEN=BAhJIiUxOWE0OTNjNzZhMDc3Nzc1NzY1OTRmYzU3MzhkNTJjNAY6BkVG--de2ddc03c8b3d468c7b15c4bd70faaf045672ac5
 API="${API_ORIGIN:-http://localhost:4741}"
 URL_PATH="/items?quantity=true"
 curl "${API}${URL_PATH}" \
