@@ -2,6 +2,8 @@
 
 Link to App: [foodTrackr](https://narichasavanorkejoyce.github.io/food-trackr-client/)
 
+Front-End Repo: https://github.com/narichasavanorkejoyce/food-trackr-client
+
 ![Imgur](http://i.imgur.com/ZzUgTGj.png)
 
 ## About
