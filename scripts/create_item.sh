@@ -1,4 +1,4 @@
-TOKEN=BAhJIiUzMjhiOTBkN2E1Y2RjMjAzYjMzMjY1YTgzNTNmYmI0NQY6BkVG--638359e8e0d5c913bec817dd29f7029de3e9e7de
+TOKEN=BAhJIiU1NmRkNTFhOGI0NWYzYWRjMGRlZjI5MzBkZjFlMTRiNQY6BkVG--ab563f3732da309d277a4ab8b33bd8f631a101f2
   API="${API_ORIGIN:-http://localhost:4741}"
   URL_PATH="/items"
   curl "${API}${URL_PATH}" \
@@ -12,9 +12,10 @@ TOKEN=BAhJIiUzMjhiOTBkN2E1Y2RjMjAzYjMzMjY1YTgzNTNmYmI0NQY6BkVG--638359e8e0d5c913
        "purchase_date": "2017-04-27",
        "exp_date": "2017-06-01",
        "store_name": "Trader Joes",
-       "quantity": "true",
-       "purchased": "true"
+       "quantity": "true"
      }
    }'
 
   echo
+
+  "purchased": "true"
