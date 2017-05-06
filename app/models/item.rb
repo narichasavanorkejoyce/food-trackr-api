@@ -5,4 +5,6 @@ class Item < ApplicationRecord
   validates :purchase_date, presence: true
   validates :exp_date, presence: true
   validates :store_name, presence: true
+  validates :quantity, presence: true
+  validates :purchased, presence: true
 end
