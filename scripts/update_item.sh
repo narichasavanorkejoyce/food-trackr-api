@@ -1,6 +1,6 @@
-ID=103
-TOKEN=BAhJIiU0MmE1ZWYyMTQwMTNmMzhmZjU4NTU4Y2FjNjFiNDU0NAY6BkVG--09932df965dfccc6e54fbcffaa68cdfd7a840784
-API="${API_ORIGIN:-http://localhost:4741}"
+ID=85
+TOKEN=BAhJIiU0MTA1NGJmY2FhMmFhOWIyNGE3MzU3YTFkYmQ4M2I2MgY6BkVG--57bd27084beb3fee3186b8d60b6759e9981b535c
+API="${API_ORIGIN:-https://food-trackr.herokuapp.com}"
 URL_PATH="/items/$ID"
 curl "${API}${URL_PATH}" \
  --include \
