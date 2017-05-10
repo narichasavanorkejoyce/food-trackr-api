@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #curl "http://localhost:3000/sign-up" \
-curl --include --request POST http://localhost:4741/sign-up \
+curl --include --request POST https://food-trackr.herokuapp.com/sign-up \
   --header "Content-Type: application/json" \
   --data '{
     "credentials": {
-      "email": "yellow@gmail.com",
+      "email": "chacha@gmail.com",
       "password": "test",
       "password_confirmation": "test"
     }

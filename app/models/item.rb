@@ -7,5 +7,6 @@ class Item < ApplicationRecord
   validates :store_name, presence: true
   # validates :quantity, presence: true
   validates :quantity, inclusion: { in: [true, false] }
+  # validates :quantity, exclusion: { in: [nil] }
   # validates :purchased, presence: true
 end
