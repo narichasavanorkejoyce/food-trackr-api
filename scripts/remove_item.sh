@@ -1,7 +1,7 @@
 #!/bin/bash
-ID=104
-TOKEN=BAhJIiUzMjFmYzMyYTcyMWFmM2ZhM2NkNTVkY2NjNzA2OGE2YQY6BkVG--064692889cef8e3aad3be5beed252d4c7417dcd9
-API="${API_ORIGIN:-http://localhost:4741}"
+ID=116
+TOKEN=BAhJIiVkMTBmMTFlOGYwMmZiOWY3ODU2MmJiMGQyMjA3OTg5ZgY6BkVG--98a9f78dd973567fe1604fd4e3a86ff3282879dc
+API="${API_ORIGIN:-https://food-trackr.herokuapp.com}"
 URL_PATH="/items/$ID"
 curl "${API}${URL_PATH}" \
   --include \

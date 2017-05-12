@@ -1,4 +1,4 @@
-TOKEN=BAhJIiUzY2JkYjBiZTkxYWI1MjRjNGU0NzZlNmZkZjk5MWJmYQY6BkVG--4bb90ca565521f4fb7e0261b2d9624cc00e8dc77
+TOKEN=BAhJIiUwYjE3Yjk1MWJhYzc0NGNmZmQzMWFiN2E2ZjE0YzU1YwY6BkVG--bcaaff62b25aa1e7516d580e2f16e45edc2feb07
   API="${API_ORIGIN:-https://food-trackr.herokuapp.com}"
   URL_PATH="/items"
   curl "${API}${URL_PATH}" \
@@ -8,7 +8,7 @@ TOKEN=BAhJIiUzY2JkYjBiZTkxYWI1MjRjNGU0NzZlNmZkZjk5MWJmYQY6BkVG--4bb90ca565521f4f
    --header "Authorization: Token token=$TOKEN" \
    --data '{
      "item": {
-       "food_name": "almonds",
+       "food_name": "coffee",
        "purchase_date": "2017-04-27",
        "exp_date": "2017-06-01",
        "store_name": "Trader Joes",
@@ -16,6 +16,7 @@ TOKEN=BAhJIiUzY2JkYjBiZTkxYWI1MjRjNGU0NzZlNmZkZjk5MWJmYQY6BkVG--4bb90ca565521f4f
        "purchased": "true"
      }
    }'
+
 
 
 

@@ -5,7 +5,7 @@ curl --include --request POST https://food-trackr.herokuapp.com/sign-up \
   --header "Content-Type: application/json" \
   --data '{
     "credentials": {
-      "email": "chacha@gmail.com",
+      "email": "baduser@gmail.com",
       "password": "test",
       "password_confirmation": "test"
     }

@@ -246,6 +246,18 @@ Content-Type: application/json; charset=utf-8
 
 #### POST /create
 
+Field Definitions & Data Types:
+
+food_name => type: string, def: name of food
+
+purchase_date => type: date (YYYY-MM-DD), def: date of purchase
+
+exp_date => type: date (YYYY-MM-DD), def: date of expiration
+
+store_name => type: string, def: name of store
+
+quantity => type: boolean, def: indicates whether or not you have the item (true means you do have the item, false means you want to buy more)
+
 Request:
 
 ```sh
@@ -290,6 +302,8 @@ Transfer-Encoding: chunked
 #### GET /items
 
 Request: Get User's Food Items
+- Run this request if quantity = true
+
 ```sh
 API="${API_ORIGIN:-http://localhost:4741}"
 URL_PATH="/items?quantity=true"
@@ -316,6 +330,8 @@ Transfer-Encoding: chunked
 {"items":[{"id":86,"food_name":"chicken","purchase_date":"2017-05-01","exp_date":"2017-05-10","store_name":"Stop \u0026 Shop","quantity":true,"purchased":true,"days_to_exp":8},{"id":88,"food_name":"pizza","purchase_date":"2017-05-02","exp_date":"2017-05-10","store_name":"Otto's","quantity":true,"purchased":true,"days_to_exp":8},{"id":87,"food_name":"cheese","purchase_date":"2017-05-01","exp_date":"2017-05-20","store_name":"Whole Foods","quantity":true,"purchased":true,"days_to_exp":18},{"id":89,"food_name":"carrots","purchase_date":"2017-04-27","exp_date":"2017-06-01","store_name":"Trader Joes","quantity":true,"purchased":true,"days_to_exp":30}]}
 ```
 Request: Get User's Grocery List
+- Run this request if quantity = false
+
 ```sh
 API="${API_ORIGIN:-http://localhost:4741}"
 URL_PATH="/items?quantity=false"
